@@ -23,3 +23,27 @@ Route::get('/p/{post}', 'PostsController@show');
 Route::get('/profile/{user}', 'ProfilesController@index')->name('profile.show');
 Route::get('/profile/{user}/edit', 'ProfilesController@edit')->name('profile.edit');
 Route::patch('/profile/{user}', 'ProfilesController@update')->name('profile.update');
+
+Route::get('profile/{user}/follow', 'ProfilesController@followUser')->name('user.follow');
+Route::get('/{user}/unfollow', 'ProfilesController@unFollowUser')->name('user.unfollow');
+Route::get('/followers/{user}', 'ProfilesController@show')->name('user.show');
+
+Route::get('/followings/{user}', 'ProfilesController@showFollowings')->name('user.showFollowings');
+
+Route::post('/comment/store', 'CommentController@store')->name('comment.add');
+Route::post('/reply/store', 'CommentController@replyStore')->name('reply.add');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

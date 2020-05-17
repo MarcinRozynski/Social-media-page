@@ -10,7 +10,9 @@ class ProfilesController extends Controller
 {
     public function index(User $user)
     {
-        return view('profiles.index', compact('user'));
+        $followers = $user->followers;
+        $followings = $user->followings;
+        return view('profiles.index', compact('user', 'followers', 'followings'));
     }
 
     public function edit(User $user)
@@ -48,4 +50,54 @@ class ProfilesController extends Controller
 
         return redirect("/profile/{$user->id}");
     }
+
+
+
+
+
+
+
+    /**
+     * Obserwuj użytkownika
+     *
+     * @param $profileId
+     *
+     */
+    public function followUser(User $user)
+    {
+        if(! $user) {
+            
+            return redirect()->back()->with('error', 'User does not exist.'); 
+        }
+
+            $user->followers()->attach(auth()->user()->id);
+            return redirect()->back()->with('success', 'Successfully followed the user.');
+    }
+
+
+    public function unFollowUser(User $user)
+    {
+        if(! $user) {
+            
+            return redirect()->back()->with('error', 'User does not exist.'); 
+        }
+
+        $user->followers()->detach(auth()->user()->id);
+        return redirect()->back()->with('success', 'Successfully unfollowed the user.');
+    }
+
+    public function show(User $user)
+    {
+        $followers = $user->followers;
+        return view('followers.show', compact('user', 'followers'));
+        
+    }
+
+    public function showFollowings(User $user)
+    {
+        $followings = $user->followings;
+        return view('followings.show', compact('user' , 'followings'));
+        
+    }
+
 }

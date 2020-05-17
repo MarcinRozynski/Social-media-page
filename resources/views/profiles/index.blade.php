@@ -10,6 +10,13 @@
         <div class="d-flex justify-content-between align-items-baseline">
             <h1>{{ $user->username }}</h1>
 
+            @if (Auth::check())
+                @cannot('update', $user->profile)
+                    <a href="{{ route('user.follow', $user->id) }}">Follow User</a>
+                    <a href="{{ route('user.unfollow', $user->id) }}">Unfollow User</a>
+                @endcannot
+            @endif
+
             @can('update', $user->profile)
                 <a href="/p/create">Dodaj nowy post</a>
             @endcan
@@ -22,8 +29,8 @@
 
             <div class="d-flex">
                 <div class="pr-5"><strong>{{ $user->posts->count() }}</strong> posts</div>
-                <div class="pr-5"><strong>23k</strong> followers</div>
-                <div class="pr-5"><strong>212</strong> following</div>
+                <div class="pr-5"><a href="{{ route('user.show', $user->id) }}"><strong>{{ $followers->count() }}</strong> followers</a></div>
+                <div class="pr-5"><a href="{{ route('user.showFollowings', $user->id) }}"><strong>{{ $followings->count() }}</strong> followings</a></div>
             </div>
         <div class="pt-4 font-weight-bold">{{ $user->profile->title }}</div>
         <div>{{ $user->profile->description }}</div>

@@ -23,9 +23,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-                    <div><img src="/svg/logo.svg" alt="" srcset="" style="height: 20px; border-right: 1px solid #333;" class="pr-3"></div>
-                    <div class="pl-3">Moja Strona</div>
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -52,12 +51,10 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->username }} <span class="caret"></span>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-                                        
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/profile/{{Auth::user()->profile->id}}/edit">Edit Profile</a>
 
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
