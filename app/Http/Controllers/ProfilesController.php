@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Follower;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Auth;
 
 class ProfilesController extends Controller
 {
     public function index(User $user)
     {
+        $isFollowed = Follower::isFollowed($user,Auth::id());
+
         $followers = $user->followers;
         $followings = $user->followings;
-        return view('profiles.index', compact('user', 'followers', 'followings'));
+        return view('profiles.index', compact('user', 'followers', 'followings', 'isFollowed'));
     }
 
     public function edit(User $user)

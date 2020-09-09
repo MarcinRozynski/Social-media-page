@@ -7,6 +7,8 @@ use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
+    // Metoda do autoryzacji //
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -32,10 +34,15 @@ class PostsController extends Controller
         auth()->user()->posts()->create([
            'caption' => $data['caption'],
            'image' => $imagePath,
+           'like' => 0,
         ]);
 
         return redirect('/profile/' . auth()->user()->id);
     }
+
+    // public function updateLikes(){
+
+    // }
 
     public function show(\App\Post $post)
     {

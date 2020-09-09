@@ -12,8 +12,20 @@
 
             @if (Auth::check())
                 @cannot('update', $user->profile)
-                    <a href="{{ route('user.follow', $user->id) }}">Follow User</a>
+                    {{-- {{$user->profile->user_id}}
+                    {{Auth::id()}}
+
+                    @if ($user->profile->user_id != Auth::id()) --}}
+
+                    @if ($isFollowed)
+                        
                     <a href="{{ route('user.unfollow', $user->id) }}">Unfollow User</a>
+                    @else
+                    <a href="{{ route('user.follow', $user->id) }}">Follow User</a>
+
+                    @endif
+                        
+                    {{-- @endif --}}
                 @endcannot
             @endif
 
