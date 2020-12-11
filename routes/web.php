@@ -19,6 +19,8 @@ Auth::routes();
 Route::get('/p/create', 'PostsController@create');
 Route::post('/p', 'PostsController@store');
 Route::get('/p/{post}', 'PostsController@show');
+Route::get('/like/{post}','PostsController@getlike');
+Route::post('/like/{post}','PostsController@like');
 // Route::update('/p/{post}', 'PostsController@updateLikes');
 
 Route::get('/profile/{user}', 'ProfilesController@index')->name('profile.show');

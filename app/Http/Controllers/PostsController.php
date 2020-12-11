@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
+use App\Like;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -40,12 +43,47 @@ class PostsController extends Controller
         return redirect('/profile/' . auth()->user()->id);
     }
 
-    // public function updateLikes(){
-
-    // }
-
     public function show(\App\Post $post)
     {
         return view('posts.show', compact('post'));
     }
+
+    // LIKES SYSTEM
+
+    public function getlike(Post $post)
+    {
+        return response()->json([
+            'count'=>$post->likes()->count(),
+        ]);
+    }
+    public function like(Post $post)
+    {
+        $userLikes = Like::where([
+            'user_id'=>Auth::id(),
+            'post_id'=>$post->id,
+        ])->exists();
+
+
+        if($userLikes){
+
+            // dd($post);
+
+            Like::where([
+                'user_id'=>Auth::id(),
+                'post_id'=>$post->id,
+            ])->delete();
+        }else{
+            Like::create([
+                'user_id'=>Auth::id(),
+                'post_id'=>$post->id,
+            ]);
+        }
+
+        return response()->json([
+            'message'=>'Thanks',
+        ]);
+    }
+
+    // END LIKES SYSTEM
+
 }

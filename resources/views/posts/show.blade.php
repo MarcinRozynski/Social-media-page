@@ -40,6 +40,7 @@
                             <input type="submit" class="btn btn-sm btn-outline-danger py-0" style="font-size: 0.8em;" value="Add Comment" />
                         </div>
                     </form>
+                    <like-component :post="{{ $post->id }}"></like-component>
                 </div>
 
             </div>
